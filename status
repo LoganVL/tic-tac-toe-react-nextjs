@@ -1,0 +1,11 @@
+[33mcommit e1d5d2e6c6348b46b240a7111eaf59f143820cb6[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Vlad Logan <vladlogan.log@gmail.com>
+Date:   Wed May 1 18:51:12 2024 +0300
+
+    Added eslint and prettier
+
+[33mcommit b194914f1438d4233407fc86697173fb25a5f9ed[m
+Author: Vlad Logan <vladlogan.log@gmail.com>
+Date:   Tue Apr 30 23:19:57 2024 +0300
+
+    version without header elements
