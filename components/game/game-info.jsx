@@ -41,7 +41,13 @@ const players = [
   },
 ];
 
-export function GameInfo({ className, playersCount, currentMove }) {
+export function GameInfo({
+  className,
+  playersCount,
+  currentMove,
+  isWinner,
+  onPlayerTimeOver,
+}) {
   return (
     <div
       className={clsx(
@@ -51,18 +57,19 @@ export function GameInfo({ className, playersCount, currentMove }) {
     >
       {players.slice(0, playersCount).map((player, index) => (
         <PlayerInfo
-          isTimerRunning={currentMove === player.symbol}
+          isTimerRunning={currentMove === player.symbol && !isWinner}
           key={player.id}
           playerInfo={player}
           isRight={index % 2 === 1}
+          onTimeOver={() => onPlayerTimeOver(player.symbol)}
         />
       ))}
     </div>
   );
 }
 
-function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
-  const [seconds, setSeconds] = useState(5);
+function PlayerInfo({ playerInfo, isRight, isTimerRunning, onTimeOver }) {
+  const [seconds, setSeconds] = useState(10);
 
   const minutesString = String(Math.floor(seconds / 60)).padStart(2, "0");
   const secondsString = String(seconds % 60).padStart(2, "0");
@@ -77,10 +84,17 @@ function PlayerInfo({ playerInfo, isRight, isTimerRunning }) {
 
       return () => {
         clearInterval(interval);
-        setSeconds(5);
+        setSeconds(10);
       };
     }
   }, [isTimerRunning]);
+
+  useEffect(() => {
+    if (seconds === 0) {
+      onTimeOver();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [seconds]);
 
   const getTimerColor = () => {
     if (isTimerRunning) {
